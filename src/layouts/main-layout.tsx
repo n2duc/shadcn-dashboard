@@ -2,12 +2,9 @@ import { AppSidebar } from "@/components/app-sidebar";
 import Header from "@/components/header";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
+import { Outlet } from "react-router-dom";
 
-export default function MainLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function MainLayout() {
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -17,7 +14,7 @@ export default function MainLayout({
         )}
         >
         <Header />
-        {children}
+        <Outlet />
       </main>
     </SidebarProvider>
   );
