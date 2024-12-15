@@ -2,7 +2,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import Header from "@/components/header";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "@tanstack/react-router";
 
 export default function MainLayout() {
   return (
@@ -14,7 +14,9 @@ export default function MainLayout() {
         )}
         >
         <Header />
-        <Outlet />
+        <div className="w-full flex-1 flex flex-col gap-2 rounded-lg">
+          <Outlet />
+        </div>
       </main>
     </SidebarProvider>
   );

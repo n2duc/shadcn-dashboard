@@ -11,9 +11,9 @@ import {
   SquareTerminal,
   Command,
   Home,
-  Inbox,
   Search,
-  Settings
+  Settings,
+  User
 } from "lucide-react"
 import {
   Sidebar,
@@ -31,18 +31,19 @@ import NavUser from "./nav-user"
 import NavMain from "./nav-main"
 import NavProjects from "./nav-projects"
 import { ScrollArea } from "./ui/scroll-area"
+import { Link, useLocation } from "@tanstack/react-router"
 
 // Menu items.
 const items = [
   {
     title: "Home",
-    url: "#",
+    url: "/",
     icon: Home,
   },
   {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
+    title: "Users",
+    url: "/users",
+    icon: User,
   },
   {
     title: "Calendar",
@@ -192,6 +193,10 @@ const data = {
 
 
 export function AppSidebar() {
+  const pathname = useLocation({
+    select: (location) => location.pathname,
+  })
+
   return (
     <Sidebar variant="floating" collapsible="icon">
       <SidebarHeader>
@@ -219,11 +224,11 @@ export function AppSidebar() {
               <SidebarMenu>
                 {items.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <a href={item.url}>
+                    <SidebarMenuButton asChild isActive={pathname === item.url}>
+                      <Link to={item.url}>
                         <item.icon />
                         <span>{item.title}</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
