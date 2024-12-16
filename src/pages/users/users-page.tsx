@@ -1,22 +1,16 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu"
-import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
-import { ChevronDown } from "lucide-react";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import DataTable from "./components/data-table";
 import { columns } from "./components/columns";
-import { getCoreRowModel, getPaginationRowModel, getSortedRowModel, SortingState, useReactTable } from "@tanstack/react-table";
-import DataTablePagination from "./components/pagination";
-
-type Checked = DropdownMenuCheckboxItemProps["checked"]
+import { ColumnFiltersState, SortingState, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
+import DataTablePagination from "./components/data-table-pagination";
+import DataTableToolBar from "./components/data-table-toolbar";
 
 export default function UsersPage() {
-  const [showUsernameBar, setShowUsernameBar] = useState<Checked>(false);
-  const [showEmailBar, setShowEmailBar] = useState<Checked>(false);
   const [sorting, setSorting] = useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 
   const { isPending, error, data } = useQuery({
     queryKey: ['users'],
@@ -28,13 +22,16 @@ export default function UsersPage() {
   const table = useReactTable({
     data: data?.users,
     columns,
+    state: {
+      sorting,
+      columnFilters
+    },
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
-    state: {
-      sorting
-    }
+    getFilteredRowModel: getFilteredRowModel(),
   })
 
   // if (isPending) return 'Loading...'
@@ -42,40 +39,16 @@ export default function UsersPage() {
   if (error) return 'An error has occurred: ' + error.message
 
   return (
-    <Card className="bg-sidebar w-full">
+    <Card className="bg-sidebar w-full min-h-full">
       <CardHeader>
-        <CardTitle>Users</CardTitle>
-        <CardDescription>Manage Users Account</CardDescription>
+        <CardTitle>Manage Users Account</CardTitle>
       </CardHeader>
       {isPending ? (
         <CardContent>Loading...</CardContent>
       ) : (
         <>
           <CardContent>
-            <div className="flex items-center gap-4 mb-4">
-              <Input placeholder="Filter name..." className="max-w-sm" />
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="ml-auto">
-                    Columns <ChevronDown />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuCheckboxItem
-                    checked={showUsernameBar}
-                    onCheckedChange={setShowUsernameBar}
-                  >
-                    Username
-                  </DropdownMenuCheckboxItem>
-                  <DropdownMenuCheckboxItem
-                    checked={showEmailBar}
-                    onCheckedChange={setShowEmailBar}
-                  >
-                    Email
-                  </DropdownMenuCheckboxItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+            <DataTableToolBar table={table} />
             <DataTable table={table} columns={columns} />
           </CardContent>
           <CardFooter>

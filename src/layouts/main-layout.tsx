@@ -10,7 +10,7 @@ export default function MainLayout() {
       <AppSidebar />
       <main
         className={cn(
-          "min-h-svh flex-1 flex items-center flex-col px-2 pb-2",
+          "min-h-svh flex-1 flex items-center flex-col px-2 pb-2 w-full",
         )}
         >
         <Header />
