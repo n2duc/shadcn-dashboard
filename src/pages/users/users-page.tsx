@@ -39,7 +39,7 @@ export default function UsersPage() {
   if (error) return 'An error has occurred: ' + error.message
 
   return (
-    <Card className="bg-sidebar w-full min-h-full">
+    <Card className="bg-sidebar w-full min-h-full flex flex-col">
       <CardHeader>
         <CardTitle>Manage Users Account</CardTitle>
       </CardHeader>
@@ -47,7 +47,7 @@ export default function UsersPage() {
         <CardContent>Loading...</CardContent>
       ) : (
         <>
-          <CardContent>
+          <CardContent className="flex-1">
             <DataTableToolBar table={table} />
             <DataTable table={table} columns={columns} />
           </CardContent>

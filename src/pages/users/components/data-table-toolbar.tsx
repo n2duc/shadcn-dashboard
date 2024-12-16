@@ -25,7 +25,7 @@ export default function DataTableToolBar<TData>({
     <div className={cn("flex items-center gap-4 mb-4", className)}>
       <div className="flex-1 flex items-center space-x-2">
         <Input
-          placeholder="Filter name..."
+          placeholder="Filter username..."
           className="max-w-sm"
           value={(table.getColumn("username")?.getFilterValue() as string) ?? ""}
           onChange={(e) => table.getColumn("username")?.setFilterValue(e.target.value)}

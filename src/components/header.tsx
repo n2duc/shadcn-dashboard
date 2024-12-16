@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { SidebarTrigger } from "./ui/sidebar";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "./ui/breadcrumb";
 import { useChildMatches } from "@tanstack/react-router";
+import { Fragment } from "react/jsx-runtime";
 
 export default function Header() {
   const matches = useChildMatches();
@@ -25,14 +26,17 @@ export default function Header() {
                   Dashboard
                 </BreadcrumbLink>
               </BreadcrumbItem>
-              {breadcrums.map((breadcrum) => (
-                <>
-                  <BreadcrumbSeparator className="hidden md:block" />
-                  <BreadcrumbItem>
-                    <BreadcrumbPage className="capitalize">{breadcrum ? breadcrum : "Default"}</BreadcrumbPage>
-                  </BreadcrumbItem>
-                </>
-              ))}
+              {breadcrums.map((breadcrum) => {
+                if (!breadcrum) return null
+                return (
+                  <Fragment key={breadcrum}>
+                    <BreadcrumbSeparator className="hidden md:block" />
+                    <BreadcrumbItem>
+                      <BreadcrumbPage className="capitalize">{breadcrum}</BreadcrumbPage>
+                    </BreadcrumbItem>
+                  </Fragment>
+                )
+              })}
             </BreadcrumbList>
           </Breadcrumb>
         </div>

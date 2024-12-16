@@ -4,7 +4,6 @@ import { ColumnDef, flexRender, Table as TableType } from "@tanstack/react-table
 interface DataTableProps<TData, TValue> {
   table: TableType<TData>
   columns: ColumnDef<TData, TValue>[]
-  // data: TData[]
 }
 
 export default function DataTable<TData, TValue>({ table, columns }: DataTableProps<TData, TValue>) {
