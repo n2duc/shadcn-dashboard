@@ -22,7 +22,7 @@ export default function Header() {
           <Breadcrumb className="hidden lg:inline-block">
             <BreadcrumbList>
               <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="#">
+                <BreadcrumbLink href="/">
                   Dashboard
                 </BreadcrumbLink>
               </BreadcrumbItem>

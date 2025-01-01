@@ -1,8 +1,9 @@
-import { AppSidebar } from "@/components/app-sidebar";
-import Header from "@/components/header";
-import { SidebarProvider } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import { Outlet } from "@tanstack/react-router";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { Toaster } from "@/components/ui/sonner";
+import Header from "@/components/header";
 
 export default function MainLayout() {
   return (
@@ -18,6 +19,7 @@ export default function MainLayout() {
           <Outlet />
         </div>
       </main>
+      <Toaster />
     </SidebarProvider>
   );
 }
