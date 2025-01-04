@@ -11,9 +11,9 @@ import {
   SquareTerminal,
   Command,
   Home,
-  Search,
   Settings,
-  User
+  User,
+  PackageCheck
 } from "lucide-react"
 import {
   Sidebar,
@@ -51,9 +51,9 @@ const items = [
     icon: Calendar,
   },
   {
-    title: "Search",
-    url: "#",
-    icon: Search,
+    title: "Tasks",
+    url: "/task",
+    icon: PackageCheck,
   },
   {
     title: "Settings",
@@ -64,8 +64,8 @@ const items = [
 
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
+    name: "n2duc",
+    email: "ngocduc8122002@gmail.com",
     avatar: "/avatars/shadcn.jpg",
   },
   teams: [

@@ -17,6 +17,8 @@ import { Route as rootRoute } from './routes/__root'
 // Create Virtual Routes
 
 const UsersLazyImport = createFileRoute('/users')()
+const TaskLazyImport = createFileRoute('/task')()
+const CalendarLazyImport = createFileRoute('/calendar')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
@@ -26,6 +28,18 @@ const UsersLazyRoute = UsersLazyImport.update({
   path: '/users',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/users.lazy').then((d) => d.Route))
+
+const TaskLazyRoute = TaskLazyImport.update({
+  id: '/task',
+  path: '/task',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/task.lazy').then((d) => d.Route))
+
+const CalendarLazyRoute = CalendarLazyImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/calendar.lazy').then((d) => d.Route))
 
 const IndexLazyRoute = IndexLazyImport.update({
   id: '/',
@@ -44,6 +58,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/calendar': {
+      id: '/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof CalendarLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/task': {
+      id: '/task'
+      path: '/task'
+      fullPath: '/task'
+      preLoaderRoute: typeof TaskLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/users': {
       id: '/users'
       path: '/users'
@@ -58,36 +86,46 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
+  '/calendar': typeof CalendarLazyRoute
+  '/task': typeof TaskLazyRoute
   '/users': typeof UsersLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
+  '/calendar': typeof CalendarLazyRoute
+  '/task': typeof TaskLazyRoute
   '/users': typeof UsersLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
+  '/calendar': typeof CalendarLazyRoute
+  '/task': typeof TaskLazyRoute
   '/users': typeof UsersLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/users'
+  fullPaths: '/' | '/calendar' | '/task' | '/users'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/users'
-  id: '__root__' | '/' | '/users'
+  to: '/' | '/calendar' | '/task' | '/users'
+  id: '__root__' | '/' | '/calendar' | '/task' | '/users'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
+  CalendarLazyRoute: typeof CalendarLazyRoute
+  TaskLazyRoute: typeof TaskLazyRoute
   UsersLazyRoute: typeof UsersLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  CalendarLazyRoute: CalendarLazyRoute,
+  TaskLazyRoute: TaskLazyRoute,
   UsersLazyRoute: UsersLazyRoute,
 }
 
@@ -102,11 +140,19 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/calendar",
+        "/task",
         "/users"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
+    },
+    "/calendar": {
+      "filePath": "calendar.lazy.tsx"
+    },
+    "/task": {
+      "filePath": "task.lazy.tsx"
     },
     "/users": {
       "filePath": "users.lazy.tsx"
