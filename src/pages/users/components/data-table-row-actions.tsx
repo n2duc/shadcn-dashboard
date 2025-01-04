@@ -15,8 +15,8 @@ import { useState } from "react";
 import { ResponsiveDialog } from "@/components/responsive-dialog";
 import { useQuery } from "@tanstack/react-query";
 import { fetchUserById } from "@/lib/services";
-import { User } from "./columns";
 import { Label } from "@/components/ui/label";
+import { type User } from "@/types";
 
 interface WithId<T> {
   id: T;

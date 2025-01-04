@@ -2,17 +2,7 @@ import { ColumnDef } from "@tanstack/react-table"
 import DataTableColumnHeader from "./column-header"
 import DataTableRowActions from "./data-table-row-actions"
 import { Badge } from "@/components/ui/badge";
-
-export type User = {
-  id: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  gender: string;
-  birthDate: string;
-}
+import { type User } from "@/types";
 
 export const columns: ColumnDef<User>[] = [
   {
