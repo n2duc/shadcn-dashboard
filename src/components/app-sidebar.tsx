@@ -2,8 +2,6 @@ import {
   AudioWaveform,
   BookOpen,
   Bot,
-  Calendar,
-  Frame,
   GalleryVerticalEnd,
   Map,
   PieChart,
@@ -13,7 +11,9 @@ import {
   Home,
   Settings,
   User,
-  PackageCheck
+  Package,
+  ClipboardCheck,
+  Frame
 } from "lucide-react"
 import {
   Sidebar,
@@ -46,14 +46,14 @@ const items = [
     icon: User,
   },
   {
-    title: "Calendar",
-    url: "/calendar",
-    icon: Calendar,
+    title: "Inventory",
+    url: "/inventory",
+    icon: Package,
   },
   {
     title: "Tasks",
     url: "/task",
-    icon: PackageCheck,
+    icon: ClipboardCheck,
   },
   {
     title: "Settings",

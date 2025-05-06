@@ -49,8 +49,6 @@ export default function UsersPage() {
     getFilteredRowModel: getFilteredRowModel(),
   });
 
-  // if (isPending) return 'Loading...'
-
   if (error) return "An error has occurred: " + error.message;
 
   return (

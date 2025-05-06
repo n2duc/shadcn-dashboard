@@ -41,3 +41,16 @@ export type TaskType = {
   title: string;
   column: TaskCols;
 }
+
+export type Product = {
+  id: string;
+  productNumber: string;
+  cost: number;
+  profit: number;
+  revenue: number;
+  customerEmail: string;
+  merchantName: string;
+  receiptStatus: 'not_received' | 'received';
+  paymentStatus: 'not_paid' | 'paid';
+  orderTime: string;
+}
